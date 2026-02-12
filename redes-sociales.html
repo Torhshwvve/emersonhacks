@@ -23,6 +23,8 @@
             --gradient-2: linear-gradient(135deg, #00f5ff 0%, #00d9ff 100%);
             --gradient-3: linear-gradient(135deg, #ff6b00 0%, #00ff41 100%);
         }
+
+
         /* Iconos gamer flotantes */
         .gamer-icons {
             position: fixed;
@@ -61,8 +63,7 @@
             }
         }
 
-
-        body {
+
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
             background: linear-gradient(135deg, #0a0a0a 0%, #0a0a0a 50%, #0f0f1e 100%);
             color: #fff;
@@ -76,6 +77,7 @@
             left: 0;
             width: 100%;
             height: 100%;
+            z-index: -1;
             background: 
                 repeating-linear-gradient(0deg, transparent, transparent 50px, rgba(0, 217, 255, 0.15) 50px, rgba(0, 217, 255, 0.15) 52px),
                 repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(0, 255, 65, 0.12) 50px, rgba(0, 255, 65, 0.12) 52px),
@@ -86,7 +88,6 @@
                 radial-gradient(circle at 25% 75%, rgba(0, 150, 255, 0.2) 0%, transparent 30%),
                 radial-gradient(circle at 75% 25%, rgba(255, 0, 127, 0.15) 0%, transparent 35%);
             background-attachment: fixed;
-            z-index: -2;
             animation: bgPulse 8s ease-in-out infinite;
         }
 
@@ -596,28 +597,26 @@
 </head>
 <body>
     <div class="background"></div>
-    <!-- Iconos gamer flotantes de fondo -->
     <div class="gamer-icons" id="gamer-icons-container"></div>
-
 
     <!-- Caricaturas animadas decorativas de personajes famosos -->
     <div class="cartoon-decoration top-left">
-        <img src="spongebob-1.png" alt="Bob Esponja">
+        <img src="https://media.giphy.com/media/l0HlDw0HZ8bYo1t32/giphy.gif" alt="Bob Esponja">
     </div>
     <div class="cartoon-decoration top-right">
-        <img src="spongebob-2.png" alt="Mickey Mouse">
+        <img src="https://media.giphy.com/media/x3l9qYBETY3uwgVIKI/giphy.gif" alt="Mickey Mouse">
     </div>
     <div class="cartoon-decoration bottom-left">
-        <img src="spongebob-3.png" alt="Bugs Bunny">
+        <img src="https://media.giphy.com/media/14g6KNQ7RaccI0/giphy.gif" alt="Bugs Bunny">
     </div>
     <div class="cartoon-decoration bottom-right">
-        <img src="spongebob-4.png" alt="Pato Donald">
+        <img src="https://media.giphy.com/media/3o7ZtplFzb1v4iR8pW/giphy.gif" alt="Pato Donald">
     </div>
     <div class="cartoon-decoration center-left">
-        <img src="spongebob-1.png" alt="Bob Esponja">
+        <img src="https://media.giphy.com/media/l0HlDw0HZ8bYo1t32/giphy.gif" alt="Bob Esponja">
     </div>
     <div class="cartoon-decoration center-right">
-        <img src="spongebob-2.png" alt="Elmer Gruñón">
+        <img src="https://media.giphy.com/media/VlAEKJmGl8WPNm0A2G/giphy.gif" alt="Elmer Gruñón">
     </div>
 
     <header>
@@ -761,6 +760,8 @@
                 }
             });
         });
+
+
         // Crear iconos gamer flotantes
         const gamerIcons = ['🎮', '⚡', '🔥', '💻', '📱', '🏆', '⭐', '🎯', '🚀', '💎', '🔌', '⚙️', '🎲', '👾', '🌟'];
         const container = document.getElementById('gamer-icons-container');
@@ -781,18 +782,14 @@
             
             container.appendChild(icon);
             
-            // Eliminar el icono después de que termina la animación
             setTimeout(() => icon.remove(), (duration + delay) * 1000);
         }
 
-        // Generar iconos continuamente
         setInterval(createGamerIcon, 2000);
         
-        // Crear algunos iconos iniciales
         for (let i = 0; i < 5; i++) {
             setTimeout(createGamerIcon, i * 400);
         }
-
 
 </body>
 </html>

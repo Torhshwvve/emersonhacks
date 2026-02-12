@@ -20,6 +20,59 @@
             --dark-bg: #0a0a0a;
             --card-bg: #1a1a1a;
         }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+            color: #fff;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Logo Watermark */
+        body::before {
+            content: '⭐ Emerson Hacks ⭐';
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-30deg);
+            font-size: 8rem;
+            font-weight: 900;
+            color: rgba(0, 102, 255, 0.05);
+            z-index: -1;
+            white-space: nowrap;
+            pointer-events: none;
+        }
+
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                repeating-linear-gradient(0deg, transparent, transparent 50px, rgba(0, 217, 255, 0.15) 50px, rgba(0, 217, 255, 0.15) 52px),
+                repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(0, 255, 65, 0.12) 50px, rgba(0, 255, 65, 0.12) 52px),
+                linear-gradient(45deg, #0a0a1f 0%, #1a0a4e 15%, #0f2d6d 30%, #001a8e 50%, #1a2a6e 70%, #0a0a3e 100%),
+                radial-gradient(circle at 15% 25%, rgba(0, 217, 255, 0.35) 0%, transparent 35%),
+                radial-gradient(circle at 85% 75%, rgba(0, 255, 65, 0.25) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(138, 43, 226, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 25% 75%, rgba(0, 150, 255, 0.2) 0%, transparent 30%),
+                radial-gradient(circle at 75% 25%, rgba(255, 0, 127, 0.15) 0%, transparent 35%);
+            background-attachment: fixed;
+            animation: bgPulse 8s ease-in-out infinite;
+        }
+
+        @keyframes bgPulse {
+            0%, 100% {
+                filter: brightness(1) contrast(1);
+            }
+            50% {
+                filter: brightness(1.15) contrast(1.1);
+            }
+        }
+
         /* Iconos gamer flotantes */
         .gamer-icons {
             position: fixed;
@@ -58,60 +111,7 @@
             }
         }
 
-
-        body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
-            color: #fff;
-            overflow-x: hidden;
-            line-height: 1.6;
-        }
-
-        /* Logo Watermark */
-        body::before {
-            content: '⭐ Emerson Hacks ⭐';
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) rotate(-30deg);
-            font-size: 8rem;
-            font-weight: 900;
-            color: rgba(0, 102, 255, 0.05);
-            z-index: -1;
-            white-space: nowrap;
-            pointer-events: none;
-        }
-
-        .background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                repeating-linear-gradient(0deg, transparent, transparent 50px, rgba(0, 217, 255, 0.15) 50px, rgba(0, 217, 255, 0.15) 52px),
-                repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(0, 255, 65, 0.12) 50px, rgba(0, 255, 65, 0.12) 52px),
-                linear-gradient(45deg, #0a0a1f 0%, #1a0a4e 15%, #0f2d6d 30%, #001a8e 50%, #1a2a6e 70%, #0a0a3e 100%),
-                radial-gradient(circle at 15% 25%, rgba(0, 217, 255, 0.35) 0%, transparent 35%),
-                radial-gradient(circle at 85% 75%, rgba(0, 255, 65, 0.25) 0%, transparent 40%),
-                radial-gradient(circle at 50% 50%, rgba(138, 43, 226, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 25% 75%, rgba(0, 150, 255, 0.2) 0%, transparent 30%),
-                radial-gradient(circle at 75% 25%, rgba(255, 0, 127, 0.15) 0%, transparent 35%);
-            background-attachment: fixed;
-            z-index: -2;
-            animation: bgPulse 8s ease-in-out infinite;
-        }
-
-        @keyframes bgPulse {
-            0%, 100% {
-                filter: brightness(1) contrast(1);
-            }
-            50% {
-                filter: brightness(1.15) contrast(1.1);
-            }
-        }
-
-        .particles-container {
+ {
             position: fixed;
             top: 0;
             left: 0;
@@ -446,10 +446,6 @@
             box-shadow: 0 10px 30px rgba(0, 217, 255, 0.6);
         }
 
-
-
-
-
         .btn-primary {
             background: linear-gradient(135deg, var(--neon-purple) 0%, var(--neon-pink) 100%);
             color: #fff;
@@ -678,29 +674,18 @@
 </head>
 <body>
     <div class="background"></div>
-    <!-- Iconos gamer flotantes de fondo -->
     <div class="gamer-icons" id="gamer-icons-container"></div>
-
     <div class="particles-container" id="particles"></div>
 
-    <!-- Caricaturas animadas decorativas de personajes famosos -->
-    <div class="cartoon-decoration top-left">
-        <img src="spongebob-1.png" alt="Bob Esponja">
-    </div>
     <div class="cartoon-decoration top-right">
-        <img src="spongebob-2.png" alt="Mickey Mouse">
     </div>
     <div class="cartoon-decoration bottom-left">
-        <img src="spongebob-3.png" alt="Bugs Bunny">
     </div>
     <div class="cartoon-decoration bottom-right">
-        <img src="spongebob-4.png" alt="Pato Donald">
     </div>
     <div class="cartoon-decoration center-left">
-        <img src="spongebob-1.png" alt="Bob Esponja">
     </div>
     <div class="cartoon-decoration center-right">
-        <img src="spongebob-2.png" alt="Elmer Gruñón">
     </div>
 
     <header>
@@ -936,6 +921,7 @@
             const enlace = `https://wa.me/${numeroWhatsapp}?text=${encodeURIComponent(mensaje)}`;
             window.open(enlace, '_blank');
         }
+
         // Crear iconos gamer flotantes
         const gamerIcons = ['🎮', '⚡', '🔥', '💻', '📱', '🏆', '⭐', '🎯', '🚀', '💎', '🔌', '⚙️', '🎲', '👾', '🌟'];
         const container = document.getElementById('gamer-icons-container');
@@ -956,18 +942,14 @@
             
             container.appendChild(icon);
             
-            // Eliminar el icono después de que termina la animación
             setTimeout(() => icon.remove(), (duration + delay) * 1000);
         }
 
-        // Generar iconos continuamente
         setInterval(createGamerIcon, 2000);
         
-        // Crear algunos iconos iniciales
         for (let i = 0; i < 5; i++) {
             setTimeout(createGamerIcon, i * 400);
         }
-
 
 </body>
 </html>
