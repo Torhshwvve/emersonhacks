@@ -44,6 +44,149 @@
             backdrop-filter: blur(20px);
         }
 
+        /* Estilos de pantalla de bienvenida */
+        .welcome-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(10, 10, 10, 0.95) 0%, rgba(10, 10, 10, 0.85) 100%),
+                        radial-gradient(circle at 20% 30%, rgba(0, 217, 255, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 70%, rgba(0, 255, 65, 0.15) 0%, transparent 50%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            animation: fadeInWelcome 0.8s ease-out;
+        }
+
+        @keyframes fadeInWelcome {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .welcome-content {
+            text-align: center;
+            max-width: 600px;
+            padding: 2rem;
+            animation: slideUp 1s ease-out 0.2s both;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .welcome-badge {
+            display: inline-block;
+            background: rgba(0, 217, 255, 0.1);
+            border: 2px solid var(--neon-cyan);
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            margin-bottom: 2rem;
+            font-weight: 700;
+            font-size: 1.1rem;
+            box-shadow: 0 0 25px rgba(0, 217, 255, 0.4);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 0 25px rgba(0, 217, 255, 0.4);
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(0, 217, 255, 0.7);
+            }
+        }
+
+        .welcome-title {
+            font-size: clamp(3rem, 8vw, 5rem);
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #00d9ff 0%, #00ff41 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 3px;
+            text-shadow: 0 0 30px rgba(0, 217, 255, 0.3);
+        }
+
+        .welcome-subtitle {
+            font-size: 1.5rem;
+            color: rgba(0, 255, 65, 0.8);
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+        }
+
+        .welcome-description {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 3rem;
+            line-height: 1.8;
+        }
+
+        .enter-btn {
+            background: linear-gradient(135deg, #00d9ff 0%, #00ff41 100%);
+            color: #000;
+            border: none;
+            padding: 1.2rem 3rem;
+            font-size: 1.2rem;
+            font-weight: 800;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 30px rgba(0, 217, 255, 0.5);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .enter-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 50px rgba(0, 217, 255, 0.8), 0 0 30px rgba(0, 255, 65, 0.4);
+        }
+
+        .enter-btn:active {
+            transform: translateY(-1px);
+        }
+
+        /* Animación de salida de pantalla de bienvenida */
+        .welcome-screen.hide {
+            animation: fadeOutWelcome 0.6s ease-out forwards;
+        }
+
+        @keyframes fadeOutWelcome {
+            to {
+                opacity: 0;
+                pointer-events: none;
+            }
+        }
+
+        /* Estilos del contenido principal */
+        .main-content {
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
         header {
             position: fixed;
             top: 0;
@@ -322,135 +465,134 @@
             .footer-links {
                 gap: 1rem;
             }
+
+            .welcome-title {
+                letter-spacing: 2px;
+            }
+
+            .welcome-subtitle {
+                letter-spacing: 1px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="background"></div>
 
-    <!-- Audio que se reproduce automáticamente -->
+    <!-- Audio que se reproduce al hacer clic en el botón de entrada -->
     <audio id="bg-audio" preload="auto">
         <source src="ALEXIS_EXEedit.mp3" type="audio/mpeg">
     </audio>
 
-    <header>
-        <nav>
-            <div class="logo">⭐ Emerson Hacks ⭐</div>
-            <ul>
-                <li><a href="index.html">🏠 Inicio</a></li>
-                <li><a href="#contacto">📞 Contacto</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <section class="hero">
-        <div class="hero-content">
-            <div class="hero-badge">🔥 Premium Gaming Mods & Social Services</div>
-            <h1>Lleva Tu Juego y Presencia Digital Al Siguiente Nivel</h1>
-            <p>Los mods más exclusivos para Android, PC e iPhone. Además, servicios premium de redes sociales. Elige la categoría que te interesa.</p>
+    <!-- Pantalla de bienvenida/entrada -->
+    <div id="welcome-screen" class="welcome-screen">
+        <div class="welcome-content">
+            <div class="welcome-badge">⭐ BIENVENIDO A ⭐</div>
+            <h1 class="welcome-title">EMERSON HACKS</h1>
+            <p class="welcome-subtitle">Mods Premium Para Gamers</p>
+            <p class="welcome-description">Los mods más exclusivos para Android, PC e iPhone.<br>Además, servicios premium de redes sociales.</p>
+            <button id="enter-btn" class="enter-btn">🚀 ENTRAR A LA PÁGINA</button>
         </div>
-    </section>
-
-    <div class="products-grid">
-        <a href="android.html" class="product-card">
-            <div class="product-icon">📱</div>
-            <div class="product-content">
-                <h2 class="product-title">Android Mods</h2>
-                <p class="product-description">Los mods más exclusivos y optimizados para dispositivos Android. Descubre nuestras herramientas premium.</p>
-                <button class="product-btn" style="margin-top: auto;">🚀 Ver Productos</button>
-            </div>
-        </a>
-
-        <a href="pc.html" class="product-card">
-            <div class="product-icon">💻</div>
-            <div class="product-content">
-                <h2 class="product-title">PC Tools</h2>
-                <p class="product-description">Herramientas profesionales y potentes para llevar tu gaming en PC al máximo rendimiento.</p>
-                <button class="product-btn" style="margin-top: auto;">⚡ Ver Productos</button>
-            </div>
-        </a>
-
-        <a href="iphone.html" class="product-card">
-            <div class="product-icon">🍎</div>
-            <div class="product-content">
-                <h2 class="product-title">iOS Premium</h2>
-                <p class="product-description">Soluciones exclusivas y seguras para dispositivos iPhone con máxima calidad garantizada.</p>
-                <button class="product-btn" style="margin-top: auto;">🔥 Ver Productos</button>
-            </div>
-        </a>
-
-        <a href="redes-sociales.html" class="product-card">
-            <div class="product-icon">🌟</div>
-            <div class="product-content">
-                <h2 class="product-title">Servicios de Redes Sociales</h2>
-                <p class="product-description">Crece en TikTok e Instagram con servicios 100% seguros, rápidos y confiables.</p>
-                <button class="product-btn" style="margin-top: auto;">📱 Ver Servicios</button>
-            </div>
-        </a>
     </div>
 
-    <footer id="contacto">
-        <div class="footer-content">
-            <div class="footer-links">
-                <a href="index.html">Inicio</a>
-                <a href="android.html">Android</a>
-                <a href="pc.html">PC Tools</a>
-                <a href="iphone.html">iPhone</a>
-                <a href="redes-sociales.html">Redes Sociales</a>
+    <!-- Contenido principal (oculto al inicio) -->
+    <div id="main-content" class="main-content" style="display: none;">
+
+        <header>
+            <nav>
+                <div class="logo">⭐ Emerson Hacks ⭐</div>
+                <ul>
+                    <li><a href="index.html">🏠 Inicio</a></li>
+                    <li><a href="#contacto">📞 Contacto</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <section class="hero">
+            <div class="hero-content">
+                <div class="hero-badge">🔥 Premium Gaming Mods & Social Services</div>
+                <h1>Lleva Tu Juego y Presencia Digital Al Siguiente Nivel</h1>
+                <p>Los mods más exclusivos para Android, PC e iPhone. Además, servicios premium de redes sociales. Elige la categoría que te interesa.</p>
             </div>
-            <p style="margin-bottom: 2rem; font-size: 1.1rem;">📞 Contacto: <strong>+57 311 4490762</strong></p>
-            <p class="copyright">© 2024 Emerson Hacks. Todos los derechos reservados.</p>
+        </section>
+
+        <div class="products-grid">
+            <a href="android.html" class="product-card">
+                <div class="product-icon">📱</div>
+                <div class="product-content">
+                    <h2 class="product-title">Android Mods</h2>
+                    <p class="product-description">Los mods más exclusivos y optimizados para dispositivos Android. Descubre nuestras herramientas premium.</p>
+                    <button class="product-btn" style="margin-top: auto;">🚀 Ver Productos</button>
+                </div>
+            </a>
+
+            <a href="pc.html" class="product-card">
+                <div class="product-icon">💻</div>
+                <div class="product-content">
+                    <h2 class="product-title">PC Tools</h2>
+                    <p class="product-description">Herramientas profesionales y potentes para llevar tu gaming en PC al máximo rendimiento.</p>
+                    <button class="product-btn" style="margin-top: auto;">⚡ Ver Productos</button>
+                </div>
+            </a>
+
+            <a href="iphone.html" class="product-card">
+                <div class="product-icon">🍎</div>
+                <div class="product-content">
+                    <h2 class="product-title">iOS Premium</h2>
+                    <p class="product-description">Soluciones exclusivas y seguras para dispositivos iPhone con máxima calidad garantizada.</p>
+                    <button class="product-btn" style="margin-top: auto;">🔥 Ver Productos</button>
+                </div>
+            </a>
+
+            <a href="redes-sociales.html" class="product-card">
+                <div class="product-icon">🌟</div>
+                <div class="product-content">
+                    <h2 class="product-title">Servicios de Redes Sociales</h2>
+                    <p class="product-description">Crece en TikTok e Instagram con servicios 100% seguros, rápidos y confiables.</p>
+                    <button class="product-btn" style="margin-top: auto;">📱 Ver Servicios</button>
+                </div>
+            </a>
         </div>
-    </footer>
+
+        <footer id="contacto">
+            <div class="footer-content">
+                <div class="footer-links">
+                    <a href="index.html">Inicio</a>
+                    <a href="android.html">Android</a>
+                    <a href="pc.html">PC Tools</a>
+                    <a href="iphone.html">iPhone</a>
+                    <a href="redes-sociales.html">Redes Sociales</a>
+                </div>
+                <p style="margin-bottom: 2rem; font-size: 1.1rem;">📞 Contacto: <strong>+57 311 4490762</strong></p>
+                <p class="copyright">© 2024 Emerson Hacks. Todos los derechos reservados.</p>
+            </div>
+        </footer>
+
+    </div>
 
     <script>
-        // Variable global para controlar si ya se reprodujo
-        let audioPlayed = false;
+        const welcomeScreen = document.getElementById('welcome-screen');
+        const mainContent = document.getElementById('main-content');
+        const enterBtn = document.getElementById('enter-btn');
+        const audio = document.getElementById('bg-audio');
 
-        // Función para reproducir el audio
-        function playAudio() {
-            if (audioPlayed) return;
-            
-            const audio = document.getElementById('bg-audio');
-            audio.currentTime = 0; // Reiniciar desde el inicio
-            
-            const playPromise = audio.play();
-            
-            if (playPromise !== undefined) {
-                playPromise.then(function() {
-                    audioPlayed = true;
-                    console.log('Audio reproduciéndose');
-                }).catch(function(error) {
-                    console.log('Error al reproducir audio automáticamente:', error);
-                });
-            }
-        }
-
-        // Reproducir tan pronto como sea posible
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', function() {
-                setTimeout(playAudio, 100);
+        // Cuando hacen clic en el botón "ENTRAR"
+        enterBtn.addEventListener('click', function() {
+            // Reproducir el audio
+            audio.currentTime = 0;
+            audio.play().catch(function(error) {
+                console.log('Error al reproducir audio:', error);
             });
-        } else {
-            setTimeout(playAudio, 100);
-        }
 
-        // También intentar cuando la ventana se carga completamente
-        window.addEventListener('load', function() {
-            setTimeout(playAudio, 100);
+            // Ocultar pantalla de bienvenida
+            welcomeScreen.classList.add('hide');
+
+            // Mostrar contenido principal después de la animación
+            setTimeout(function() {
+                welcomeScreen.style.display = 'none';
+                mainContent.style.display = 'block';
+            }, 600);
         });
-
-        // Si falla por política de autoplay, reproducir con el primer click
-        document.addEventListener('click', function() {
-            if (!audioPlayed) {
-                const audio = document.getElementById('bg-audio');
-                audio.currentTime = 0;
-                audio.play().catch(function(error) {
-                    console.log('Error:', error);
-                });
-                audioPlayed = true;
-            }
-        }, { once: true });
 
         // Scroll suave
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
