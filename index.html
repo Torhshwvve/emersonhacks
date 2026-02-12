@@ -328,8 +328,8 @@
 <body>
     <div class="background"></div>
 
-    <!-- Audio que se reproduce automáticamente una sola vez al cargar la página -->
-    <audio id="bg-audio" autoplay>
+    <!-- Audio que se reproduce automáticamente -->
+    <audio id="bg-audio" preload="auto">
         <source src="ALEXIS_EXEedit.mp3" type="audio/mpeg">
     </audio>
 
@@ -404,19 +404,53 @@
     </footer>
 
     <script>
-        // El audio se reproduce automáticamente al cargar la página
-        const audio = document.getElementById('bg-audio');
+        // Variable global para controlar si ya se reprodujo
+        let audioPlayed = false;
 
-        // Intentar reproducir el audio automáticamente cuando la página carga
-        window.addEventListener('load', () => {
-            audio.play().catch(error => {
-                console.log('Autoplay bloqueado. El audio se reproducirá con la interacción del usuario.', error);
-                // Si autoplay está bloqueado por el navegador, reproducir con el primer clic
-                document.addEventListener('click', () => {
-                    audio.play();
-                }, { once: true });
+        // Función para reproducir el audio
+        function playAudio() {
+            if (audioPlayed) return;
+            
+            const audio = document.getElementById('bg-audio');
+            audio.currentTime = 0; // Reiniciar desde el inicio
+            
+            const playPromise = audio.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.then(function() {
+                    audioPlayed = true;
+                    console.log('Audio reproduciéndose');
+                }).catch(function(error) {
+                    console.log('Error al reproducir audio automáticamente:', error);
+                });
+            }
+        }
+
+        // Reproducir tan pronto como sea posible
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', function() {
+                setTimeout(playAudio, 100);
             });
+        } else {
+            setTimeout(playAudio, 100);
+        }
+
+        // También intentar cuando la ventana se carga completamente
+        window.addEventListener('load', function() {
+            setTimeout(playAudio, 100);
         });
+
+        // Si falla por política de autoplay, reproducir con el primer click
+        document.addEventListener('click', function() {
+            if (!audioPlayed) {
+                const audio = document.getElementById('bg-audio');
+                audio.currentTime = 0;
+                audio.play().catch(function(error) {
+                    console.log('Error:', error);
+                });
+                audioPlayed = true;
+            }
+        }, { once: true });
 
         // Scroll suave
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
