@@ -328,15 +328,10 @@
 <body>
     <div class="background"></div>
 
-    <!-- Audio que se reproduce automáticamente -->
-    <audio id="bg-audio" autoplay loop muted>
+    <!-- Audio que se reproduce automáticamente una sola vez al cargar la página -->
+    <audio id="bg-audio" autoplay>
         <source src="ALEXIS_EXEedit.mp3" type="audio/mpeg">
     </audio>
-
-    <!-- Botón para activar/desactivar el audio (por políticas de navegadores modernos) -->
-    <button id="audio-toggle" style="position: fixed; bottom: 30px; left: 30px; width: 60px; height: 60px; background: linear-gradient(135deg, #00d9ff 0%, #00ff41 100%); border: none; border-radius: 50%; font-size: 1.5rem; cursor: pointer; z-index: 998; box-shadow: 0 0 15px rgba(0, 217, 255, 0.4); transition: all 0.3s ease; display: flex; align-items: center; justify-content: center;">
-        🔊
-    </button>
 
     <header>
         <nav>
@@ -409,43 +404,18 @@
     </footer>
 
     <script>
-        // Controlar el audio
+        // El audio se reproduce automáticamente al cargar la página
         const audio = document.getElementById('bg-audio');
-        const audioToggle = document.getElementById('audio-toggle');
-        let isPlaying = false;
 
-        // Intentar reproducir el audio automáticamente
-        const playAudio = () => {
-            audio.muted = false;
+        // Intentar reproducir el audio automáticamente cuando la página carga
+        window.addEventListener('load', () => {
             audio.play().catch(error => {
-                console.log('Autoplay bloqueado, esperando interacción del usuario:', error);
+                console.log('Autoplay bloqueado. El audio se reproducirá con la interacción del usuario.', error);
+                // Si autoplay está bloqueado por el navegador, reproducir con el primer clic
+                document.addEventListener('click', () => {
+                    audio.play();
+                }, { once: true });
             });
-            isPlaying = true;
-            audioToggle.textContent = '🔊';
-        };
-
-        // Intentar reproducir cuando el página carga
-        window.addEventListener('load', playAudio);
-
-        // También intentar cuando el usuario hace clic en cualquier lado
-        document.addEventListener('click', () => {
-            if (!isPlaying) {
-                playAudio();
-            }
-        });
-
-        // Controlar toggle del audio
-        audioToggle.addEventListener('click', (e) => {
-            e.stopPropagation();
-            if (audio.paused) {
-                audio.play();
-                audioToggle.textContent = '🔊';
-                isPlaying = true;
-            } else {
-                audio.pause();
-                audioToggle.textContent = '🔇';
-                isPlaying = false;
-            }
         });
 
         // Scroll suave
