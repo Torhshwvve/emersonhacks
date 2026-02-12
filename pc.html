@@ -504,11 +504,144 @@
                 padding: 2rem 1.5rem;
             }
         }
+
+        /* Estilos para caricaturas animadas */
+        .cartoon-decoration {
+            position: fixed;
+            z-index: 5;
+            opacity: 0.8;
+            pointer-events: none;
+            animation: float 6s ease-in-out infinite;
+            filter: drop-shadow(0 0 10px rgba(0, 217, 255, 0.3));
+        }
+
+        .cartoon-decoration img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .cartoon-decoration.top-left {
+            top: 8%;
+            left: 2%;
+            width: 120px;
+            height: 120px;
+            animation-delay: 0s;
+        }
+
+        .cartoon-decoration.top-right {
+            top: 12%;
+            right: 3%;
+            width: 110px;
+            height: 110px;
+            animation-delay: 1s;
+        }
+
+        .cartoon-decoration.bottom-left {
+            bottom: 12%;
+            left: 1%;
+            width: 115px;
+            height: 115px;
+            animation-delay: 2s;
+        }
+
+        .cartoon-decoration.bottom-right {
+            bottom: 8%;
+            right: 2%;
+            width: 125px;
+            height: 125px;
+            animation-delay: 1.5s;
+        }
+
+        .cartoon-decoration.center-left {
+            top: 50%;
+            left: 1%;
+            width: 100px;
+            height: 100px;
+            animation-delay: 0.5s;
+            transform: translateY(-50%);
+        }
+
+        .cartoon-decoration.center-right {
+            top: 50%;
+            right: 1%;
+            width: 105px;
+            height: 105px;
+            animation-delay: 2.5s;
+            transform: translateY(-50%);
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-25px) rotate(3deg);
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .cartoon-decoration {
+                opacity: 0.5;
+            }
+
+            .cartoon-decoration.top-left {
+                width: 90px;
+                height: 90px;
+            }
+
+            .cartoon-decoration.top-right {
+                width: 85px;
+                height: 85px;
+            }
+
+            .cartoon-decoration.bottom-left {
+                width: 85px;
+                height: 85px;
+            }
+
+            .cartoon-decoration.bottom-right {
+                width: 95px;
+                height: 95px;
+            }
+
+            .cartoon-decoration.center-left,
+            .cartoon-decoration.center-right {
+                width: 75px;
+                height: 75px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .cartoon-decoration {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="background"></div>
     <div class="particles-container" id="particles"></div>
+
+    <!-- Caricaturas animadas decorativas de personajes famosos -->
+    <div class="cartoon-decoration top-left">
+        <img src="https://media.giphy.com/media/l0HlDw0HZ8bYo1t32/giphy.gif" alt="Bob Esponja">
+    </div>
+    <div class="cartoon-decoration top-right">
+        <img src="https://media.giphy.com/media/x3l9qYBETY3uwgVIKI/giphy.gif" alt="Mickey Mouse">
+    </div>
+    <div class="cartoon-decoration bottom-left">
+        <img src="https://media.giphy.com/media/14g6KNQ7RaccI0/giphy.gif" alt="Bugs Bunny">
+    </div>
+    <div class="cartoon-decoration bottom-right">
+        <img src="https://media.giphy.com/media/3o7ZtplFzb1v4iR8pW/giphy.gif" alt="Pato Donald">
+    </div>
+    <div class="cartoon-decoration center-left">
+        <img src="https://media.giphy.com/media/l0HlDw0HZ8bYo1t32/giphy.gif" alt="Bob Esponja">
+    </div>
+    <div class="cartoon-decoration center-right">
+        <img src="https://media.giphy.com/media/VlAEKJmGl8WPNm0A2G/giphy.gif" alt="Elmer Gruñón">
+    </div>
 
     <header>
         <nav>
