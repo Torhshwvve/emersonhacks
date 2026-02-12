@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Android Mods Premium - Emerson Hacks</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --neon-cyan: #00d9ff;
+            --neon-green: #00ff41;
+            --dark-bg: #0a0a0a;
+            --card-bg: #1a1a1a;
+            --gray-light: #2a2a2a;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            overflow-x: hidden;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body::before {
+            content: '⭐ Emerson Hacks ⭐';
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-30deg);
+            font-size: 8rem;
+            font-weight: 900;
+            color: rgba(0, 217, 255, 0.03);
+            z-index: -1;
+            white-space: nowrap;
+            pointer-events: none;
+        }
+
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: #0a0a0a;
+        }
+
+        .particles-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--neon-green);
+            border-radius: 50%;
+            animation: float 15s infinite ease-in-out;
+            opacity: 0.5;
+            will-change: transform;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.5;
+            }
+            50% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(50px);
+                opacity: 0;
+            }
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 2px solid rgba(0, 217, 255, 0.3);
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--neon-cyan) 0%, var(--neon-green) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--neon-cyan);
+            text-shadow: 0 0 10px rgba(0, 217, 255, 0.5);
+        }
+
+        .hero {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10rem 2rem 4rem;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 900px;
+        }
+
+        .platform-badge {
+            display: inline-block;
+            background: rgba(0, 217, 255, 0.15);
+            border: 2px solid var(--neon-cyan);
+            padding: 0.7rem 2rem;
+            border-radius: 50px;
+            margin-bottom: 2rem;
+            font-weight: 700;
+            box-shadow: 0 0 15px rgba(0, 217, 255, 0.4);
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--neon-cyan) 0%, var(--neon-green) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 1.5rem;
+        }
+
+        .payment-info {
+            background: rgba(0, 217, 255, 0.1);
+            border: 1px solid var(--neon-cyan);
+            padding: 1rem 2rem;
+            border-radius: 15px;
+            font-weight: 600;
+            display: inline-block;
+            box-shadow: 0 0 15px rgba(0, 217, 255, 0.2);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .product-section {
+            background: rgba(26, 26, 26, 0.5);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 3rem 2rem;
+            margin-bottom: 3rem;
+            border: 2px solid rgba(0, 217, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .product-section:hover {
+            border-color: var(--neon-cyan);
+            box-shadow: 0 10px 40px rgba(0, 217, 255, 0.2);
+        }
+
+        .product-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .product-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--neon-cyan) 0%, var(--neon-green) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .product-description {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1.5rem;
+        }
+
+        .warning-badge, .promo-message {
+            background: rgba(0, 217, 255, 0.15);
+            border: 2px solid var(--neon-cyan);
+            padding: 1rem 2rem;
+            border-radius: 15px;
+            margin: 1rem auto;
+            font-weight: 700;
+            max-width: 600px;
+        }
+
+        .promo-message {
+            background: rgba(0, 255, 65, 0.15);
+            border-color: var(--neon-green);
+            box-shadow: 0 0 15px rgba(0, 255, 65, 0.2);
+        }
+
+        .features-list {
+            background: rgba(10, 10, 10, 0.5);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .features-list h3 {
+            text-align: center;
+            background: linear-gradient(135deg, var(--neon-green) 0%, var(--neon-cyan) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .features-list ul {
+            list-style: none;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-list li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 1.1rem;
+        }
+
+        .features-list li:before {
+            content: '✓ ';
+            color: var(--neon-green);
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        .plans-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .plan-card {
+            background: rgba(20, 20, 20, 0.8);
+            border: 2px solid rgba(0, 217, 255, 0.2);
+            border-radius: 25px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .plan-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--neon-cyan);
+            box-shadow: 0 15px 40px rgba(0, 217, 255, 0.3);
+        }
+
+        .plan-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.8rem;
+            background: linear-gradient(135deg, var(--neon-cyan) 0%, var(--neon-green) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .plan-card p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1rem;
+        }
+
+        .price {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--neon-cyan);
+            margin: 1.5rem 0;
+            text-shadow: 0 0 10px rgba(0, 217, 255, 0.4);
+        }
+
+        .buy-btn {
+            width: 100%;
+            background: linear-gradient(135deg, var(--neon-cyan) 0%, var(--neon-green) 100%);
+            color: #000;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 0 15px rgba(0, 217, 255, 0.3);
+        }
+
+        .buy-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 217, 255, 0.5);
+        }
+
+        footer {
+            background: rgba(20, 20, 20, 0.8);
+            border-top: 2px solid var(--neon-cyan);
+            padding: 3rem 2rem 2rem;
+            margin-top: 5rem;
+            box-shadow: 0 -8px 32px rgba(0, 217, 255, 0.1);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-contact {
+            font-size: 1.3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--neon-cyan) 0%, var(--neon-green) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .footer-whatsapp {
+            font-size: 1.1rem;
+            color: var(--neon-green);
+            margin-bottom: 2rem;
+            text-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+        }
+
+        .footer-copyright {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(0, 217, 255, 0.2);
+        }
+
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: #fff;
+            text-decoration: none;
+            box-shadow: 0 10px 40px rgba(37, 211, 102, 0.5);
+            z-index: 999;
+            transition: all 0.3s ease;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.15);
+            box-shadow: 0 15px 50px rgba(37, 211, 102, 0.7);
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 1.5rem;
+                padding: 1rem;
+            }
+
+            nav ul {
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero {
+                padding: 8rem 1rem 3rem;
+            }
+
+            .plans-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .product-section {
+                padding: 2rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background"></div>
+    <div class="particles-container" id="particles"></div>
+
+    <header>
+        <nav>
+            <div class="logo">📱 Emerson Hacks - ANDROID</div>
+            <ul>
+                <li><a href="index.html">🏠 Inicio</a></li>
+                <li><a href="pc.html">💻 PC</a></li>
+                <li><a href="iphone.html">🍎 iPhone</a></li>
+                <li><a href="#contacto">📞 Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="platform-badge">🔥 Android Premium</div>
+            <h1>Mods Exclusivos Para Android</h1>
+            <p>Los mejores mods certificados para dispositivos Android</p>
+            <div class="payment-info">
+                💳 Aceptamos transferencias internacionales
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <!-- DRIP CLIENT APK MOD -->
+        <div class="product-section">
+            <div class="product-header">
+                <h2 class="product-title">🎮 DRIP CLIENT APK MOD</h2>
+                <p class="product-description">Hack muy efectivo para Free Fire sin necesidad de ROOT. Súper seguro y actualizado constantemente.</p>
+                
+                <div class="promo-message">
+                    <p>🔥 Adquiere el mejor panel del momento con soporte 24/7 🔥</p>
+                </div>
+            </div>
+
+            <div class="plans-grid">
+                <div class="plan-card">
+                    <h3>🌟 7 DÍAS</h3>
+                    <p>Una semana completa</p>
+                    <div class="price">$8.00</div>
+                    <button class="buy-btn" onclick="comprarProducto('Drip Client APK MOD', '7 Días', '8.00')">
+                        💳 Comprar Ahora
+                    </button>
+                </div>
+
+                <div class="plan-card">
+                    <h3>👑 15 DÍAS</h3>
+                    <p>Dos semanas de poder</p>
+                    <div class="price">$11.00</div>
+                    <button class="buy-btn" onclick="comprarProducto('Drip Client APK MOD', '15 Días', '11.00')">
+                        💳 Comprar Ahora
+                    </button>
+                </div>
+
+                <div class="plan-card">
+                    <h3>💎 30 DÍAS</h3>
+                    <p>Un mes completo</p>
+                    <div class="price">$15.00</div>
+                    <button class="buy-btn" onclick="comprarProducto('Drip Client APK MOD', '30 Días', '15.00')">
+                        💳 Comprar Ahora
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- DRIP ROOT -->
+        <div class="product-section">
+            <div class="product-header">
+                <h2 class="product-title">🛡️ DRIP ROOT</h2>
+                <p class="product-description">Hack potente para Free Fire con versión ROOT. Muy seguro, efectivo y con actualizaciones constantes.</p>
+                
+                <div class="warning-badge">
+                    <p>⚠️ SOLO PARA TELÉFONOS ROOTEADOS ⚠️</p>
+                </div>
+            </div>
+
+            <div class="plans-grid">
+                <div class="plan-card">
+                    <h3>⚡ 1 DÍA</h3>
+                    <p>Acceso ROOT por 24 horas</p>
+                    <div class="price">$3.00</div>
+                    <button class="buy-btn" onclick="comprarProducto('Drip Root', '1 Día', '3.00')">
+                        💳 Comprar Ahora
+                    </button>
+                </div>
+
+                <div class="plan-card">
+                    <h3>🌟 7 DÍAS</h3>
+                    <p>Una semana ROOT completo</p>
+                    <div class="price">$6.00</div>
+                    <button class="buy-btn" onclick="comprarProducto('Drip Root', '7 Días', '6.00')">
+                        💳 Comprar Ahora
+                    </button>
+                </div>
+
+                <div class="plan-card">
+                    <h3>💎 30 DÍAS</h3>
+                    <p>Un mes de poder ROOT total</p>
+                    <div class="price">$20.00</div>
+                    <button class="buy-btn" onclick="comprarProducto('Drip Root', '30 Días', '20.00')">
+                        💳 Comprar Ahora
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- DRIP 8 BALL POOL -->
+        <div class="product-section">
+            <div class="product-header">
+                <h2 class="product-title">🎱 DRIP 8 BALL POOL</h2>
+                <p class="product-description">Hack efectivo para Free Fire. Muy seguro, potente y se actualiza constantemente para máxima efectividad.</p>
+            </div>
+
+            <div class="plans-grid">
+                <div class="plan-card">
+                    <h3>⚡ 1 DÍA</h3>
+                    <p>24 horas de líneas perfectas</p>
+                    <div class="price">$3.00</div>
+                    <button class="buy-btn" onclick="comprarProducto('Drip 8 Ball Pool', '1 Día', '3.00')">
+                        💳 Comprar Ahora
+                    </button>
+                </div>
+
+                <div class="plan-card">
+                    <h3>🌟 7 DÍAS</h3>
+                    <p>Una semana dominando</p>
+                    <div class="price">$8.00</div>
+                    <button class="buy-btn" onclick="comprarProducto('Drip 8 Ball Pool', '7 Días', '8.00')">
+                        💳 Comprar Ahora
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- STRIK BR -->
+        <div class="product-section">
+            <div class="product-header">
+                <h2 class="product-title">⚔️ STRIK BR</h2>
+                <p class="product-description">Hack muy efectivo para Free Fire. Súper seguro y con actualizaciones constantes para máxima potencia.</p>
+                
+                <div class="warning-badge">
+                    <p>⚠️ SOLO PARA TELÉFONOS ROOTEADOS ⚠️</p>
+                </div>
+            </div>
+
+            <div class="plans-grid">
+                <div class="plan-card">
+                    <h3>⚡ 1 DÍA</h3>
+                    <p>Prueba por 24 horas</p>
+                    <div class="price">$3.00</div>
+                    <button class="buy-btn" onclick="comprarProducto('Strik BR', '1 Día', '3.00')">
+                        💳 Comprar Ahora
+                    </button>
+                </div>
+
+                <div class="plan-card">
+                    <h3>🌟 7 DÍAS</h3>
+                    <p>Una semana de ventaja</p>
+                    <div class="price">$6.50</div>
+                    <button class="buy-btn" onclick="comprarProducto('Strik BR', '7 Días', '6.50')">
+                        💳 Comprar Ahora
+                    </button>
+                </div>
+
+                <div class="plan-card">
+                    <h3>💎 30 DÍAS</h3>
+                    <p>Un mes de supremacía</p>
+                    <div class="price">$22.00</div>
+                    <button class="buy-btn" onclick="comprarProducto('Strik BR', '30 Días', '22.00')">
+                        💳 Comprar Ahora
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- HG CHEATS -->
+        <div class="product-section">
+            <div class="product-header">
+                <h2 class="product-title">💎 HG CHEATS</h2>
+                <p class="product-description">Hack muy efectivo para Free Fire. Totalmente seguro y se actualiza constantemente para mantener su efectividad.</p>
+            </div>
+
+            <div class="plans-grid">
+                <div class="plan-card">
+                    <h3>🌟 7 DÍAS</h3>
+                    <p>Una semana premium</p>
+                    <div class="price">$8.00</div>
+                    <button class="buy-btn" onclick="comprarProducto('HG Cheats', '7 Días', '8.00')">
+                        💳 Comprar Ahora
+                    </button>
+                </div>
+
+                <div class="plan-card">
+                    <h3>👑 15 DÍAS</h3>
+                    <p>Dos semanas de dominio</p>
+                    <div class="price">$12.00</div>
+                    <button class="buy-btn" onclick="comprarProducto('HG Cheats', '15 Días', '12.00')">
+                        💳 Comprar Ahora
+                    </button>
+                </div>
+
+                <div class="plan-card">
+                    <h3>💎 30 DÍAS</h3>
+                    <p>Un mes completo HG</p>
+                    <div class="price">$17.00</div>
+                    <button class="buy-btn" onclick="comprarProducto('HG Cheats', '30 Días', '17.00')">
+                        💳 Comprar Ahora
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer id="contacto">
+        <div class="footer-content">
+            <p class="footer-contact">📞 ¿Listo para dominar? ¡Contáctanos!</p>
+            <p class="footer-whatsapp">💚 WhatsApp: +57 311 4490762</p>
+            <p class="footer-copyright">© 2024 Emerson Hacks. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/573114490762?text=Hola,%20quiero%20información%20sobre%20productos%20Android" 
+       class="whatsapp-float" 
+       title="Contactar por WhatsApp">
+        💬
+    </a>
+
+    <script>
+        function createParticles() {
+            const container = document.getElementById('particles');
+            const isMobile = window.innerWidth <= 768;
+            const particleCount = isMobile ? 15 : 30;
+            const colors = ['#00ff41', '#00d9ff'];
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (Math.random() * 8 + 15) + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        createParticles();
+
+        function comprarProducto(producto, duracion, precio) {
+            const numeroWhatsapp = '573114490762';
+            const mensaje = `Hola, quiero comprar:\n\nProducto: ${producto}\nDuración: ${duracion}\nPrecio: $${precio} USD\n\n¿Cómo procedo con el pago?`;
+            const enlace = `https://wa.me/${numeroWhatsapp}?text=${encodeURIComponent(mensaje)}`;
+            window.open(enlace, '_blank');
+        }
+    </script>
+</body>
+</html>

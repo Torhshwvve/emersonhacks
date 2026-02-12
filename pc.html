@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PC Mods Premium - Emerson Hacks</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --neon-purple: #00d9ff;
+            --neon-pink: #00ff41;
+            --neon-cyan: #00d9ff;
+            --neon-orange: #00d9ff;
+            --neon-blue: #00d9ff;
+            --dark-bg: #0a0a0a;
+            --card-bg: #1a1a1a;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+            color: #fff;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Logo Watermark */
+        body::before {
+            content: '⭐ Emerson Hacks ⭐';
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-30deg);
+            font-size: 8rem;
+            font-weight: 900;
+            color: rgba(0, 102, 255, 0.05);
+            z-index: -1;
+            white-space: nowrap;
+            pointer-events: none;
+        }
+
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(ellipse at top, #0a0a0a 0%, #0a0a0a 100%);
+        }
+
+        .particles-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--neon-cyan);
+            border-radius: 50%;
+            animation: float 15s infinite ease-in-out; will-change: transform;
+            opacity: 0.5; will-change: transform;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.5; will-change: transform;
+            }
+            50% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.4;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px);
+                opacity: 0;
+            }
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(10, 10, 10, 0.5);
+            backdrop-filter: blur(20px);
+            border-bottom: 2px solid rgba(0, 217, 255, 0.3);
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--neon-cyan);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.4s ease;
+        }
+
+        nav a:hover {
+            color: var(--neon-cyan);
+        }
+
+        .hero {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10rem 2rem 4rem;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 900px;
+        }
+
+        .platform-badge {
+            display: inline-block;
+            background: rgba(0, 217, 255, 0.2);
+            border: 2px solid var(--neon-cyan);
+            padding: 0.7rem 2rem;
+            border-radius: 50px;
+            margin-bottom: 2rem;
+            font-weight: 700;
+            animation: borderGlow 3s infinite;
+        }
+
+        @keyframes borderGlow {
+            0%, 100% { border-color: var(--neon-cyan); box-shadow: 0 0 10px rgba(0, 217, 255, 0.3); }
+            50% { border-color: var(--neon-blue); box-shadow: 0 0 20px rgba(0, 102, 255, 0.5); }
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--neon-cyan) 0%, var(--neon-blue) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 1.5rem;
+        }
+
+        .payment-info {
+            background: rgba(189, 0, 255, 0.1);
+            border: 1px solid var(--neon-purple);
+            padding: 1rem 2rem;
+            border-radius: 15px;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .product-section {
+            background: rgba(26, 26, 46, 0.4);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 3rem 2rem;
+            margin-bottom: 3rem;
+            border: 2px solid rgba(0, 217, 255, 0.2);
+            transition: all 0.4s ease;
+        }
+
+        .product-section:hover {
+            border-color: var(--neon-cyan);
+            box-shadow: 0 10px 40px rgba(0, 217, 255, 0.2);
+        }
+
+        .product-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .product-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--neon-cyan) 0%, var(--neon-blue) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .product-description {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1.5rem;
+        }
+
+        .premium-badge, .promo-message {
+            background: rgba(189, 0, 255, 0.2);
+            border: 2px solid var(--neon-purple);
+            padding: 1rem 2rem;
+            border-radius: 15px;
+            margin: 1rem auto;
+            font-weight: 700;
+            max-width: 600px;
+            animation: pulse 3s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .features-list {
+            background: rgba(10, 10, 10, 0.5);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .features-list h3 {
+            text-align: center;
+            color: var(--neon-cyan);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .features-list ul {
+            list-style: none;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-list li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 1.1rem;
+        }
+
+        .features-list li:before {
+            content: '✓ ';
+            color: var(--neon-cyan);
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        .plans-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .plan-card {
+            background: rgba(10, 10, 10, 0.8);
+            border: 2px solid rgba(0, 217, 255, 0.3);
+            border-radius: 25px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .plan-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(0, 217, 255, 0.05), transparent);
+            animation: rotate 6s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .plan-card.premium {
+            border-color: var(--neon-purple);
+            background: rgba(189, 0, 255, 0.1);
+        }
+
+        .plan-card:hover {
+            transform: translateY(-15px) scale(1.05);
+            border-color: var(--neon-cyan);
+            box-shadow: 0 20px 50px rgba(0, 217, 255, 0.4);
+        }
+
+        .plan-card.premium:hover {
+            border-color: var(--neon-purple);
+            box-shadow: 0 20px 50px rgba(189, 0, 255, 0.4);
+        }
+
+        .plan-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.8rem;
+            color: var(--neon-cyan);
+            position: relative;
+            z-index: 2;
+        }
+
+        .plan-card.premium h3 {
+            color: var(--neon-purple);
+        }
+
+        .plan-card p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .price {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #fff;
+            margin: 1.5rem 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .buy-btn {
+            width: 100%;
+            background: linear-gradient(135deg, var(--neon-cyan) 0%, var(--neon-blue) 100%);
+            color: #000;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .plan-card.premium .buy-btn {
+            background: linear-gradient(135deg, var(--neon-purple) 0%, var(--neon-pink) 100%);
+            color: #fff;
+        }
+
+        .buy-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 217, 255, 0.6);
+        }
+
+
+
+
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--neon-purple) 0%, var(--neon-pink) 100%);
+            color: #fff;
+            padding: 1.2rem 3rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 30px rgba(189, 0, 255, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(189, 0, 255, 0.6);
+        }
+
+        footer {
+            background: rgba(10, 10, 10, 0.5);
+            border-top: 2px solid var(--neon-purple);
+            padding: 3rem 2rem 2rem;
+            margin-top: 5rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-contact {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--neon-cyan);
+            margin-bottom: 1rem;
+        }
+
+        .footer-whatsapp {
+            font-size: 1.1rem;
+            color: #00ff41;
+            margin-bottom: 2rem;
+        }
+
+        .footer-copyright {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: #fff;
+            text-decoration: none;
+            box-shadow: 0 10px 40px rgba(37, 211, 102, 0.5);
+            z-index: 999;
+            transition: all 0.4s ease;
+            animation: bounce-whatsapp 3s ease-in-out infinite;
+        }
+
+        @keyframes bounce-whatsapp {
+            0%, 100% {
+                transform: translateY(0) scale(1);
+            }
+            50% {
+                transform: translateY(-10px) scale(1.1);
+            }
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.2);
+            box-shadow: 0 15px 50px rgba(37, 211, 102, 0.7);
+            animation: none;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 1.5rem;
+                padding: 1rem;
+            }
+
+            nav ul {
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero {
+                padding: 8rem 1rem 3rem;
+            }
+
+            .plans-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .product-section {
+                padding: 2rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background"></div>
+    <div class="particles-container" id="particles"></div>
+
+    <header>
+        <nav>
+            <div class="logo">💻 Emerson Hacks - PC</div>
+            <ul>
+                <li><a href="index.html">🏠 Inicio</a></li>
+                <li><a href="android.html">📱 Android</a></li>
+                <li><a href="iphone.html">🍎 iPhone</a></li>
+                <li><a href="#contacto">📞 Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="platform-badge">🔥 PC Premium</div>
+            <h1>Herramientas Pro Para PC</h1>
+            <p>Los mejores paneles y mods para gaming en PC</p>
+            <div class="payment-info">
+                💳 Aceptamos transferencias internacionales
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <!-- CUBAN MODS PC -->
+        <div class="product-section">
+            <div class="product-header">
+                <h2 class="product-title">🎮 CUBAN MODS PC</h2>
+                <p class="product-description">El mod más completo para PC</p>
+                
+                <div class="promo-message">
+                    <p>✨ Adquiere el mejor panel del momento con soporte 24/7 ✨</p>
+                </div>
+            </div>
+
+            <div class="plans-grid">
+                <div class="plan-card">
+                    <h3>⚡ 1 DÍA</h3>
+                    <p>Prueba por 24 horas</p>
+                    <div class="price">$4.00</div>
+                    <button class="buy-btn" onclick="comprarProducto('Cuban Mods PC', '1 Día', '4.00')">
+                        💳 Comprar Ahora
+                    </button>
+                </div>
+
+                <div class="plan-card">
+                    <h3>🌟 30 DÍAS</h3>
+                    <p>Un mes completo</p>
+                    <div class="price">$13.00</div>
+                    <button class="buy-btn" onclick="comprarProducto('Cuban Mods PC', '30 Días', '13.00')">
+                        💳 Comprar Ahora
+                    </button>
+                </div>
+
+                <div class="plan-card">
+                    <h3>👑 PERMANENTE</h3>
+                    <p>Acceso de por vida</p>
+                    <div class="price">$35.00</div>
+                    <button class="buy-btn" onclick="comprarProducto('Cuban Mods PC', 'Permanente', '35.00')">
+                        💳 Comprar Ahora
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- PANELES PERSONALIZADOS -->
+        <div class="product-section">
+            <div class="product-header">
+                <h2 class="product-title">⭐ PANELES PERSONALIZADOS PC</h2>
+                <p class="product-description">Panel único con tu nombre y logo</p>
+                <div class="premium-badge">💎 PREMIUM</div>
+                
+                <div class="promo-message">
+                    <p>🔥 Adquiere el mejor panel del momento con soporte 24/7 🔥</p>
+                </div>
+            </div>
+
+            <div class="features-list">
+                <h3>⭐ CARACTERÍSTICAS PREMIUM ⭐</h3>
+                <ul>
+                    <li>Panel completamente personalizado con tu nombre</li>
+                    <li>Tu logo integrado en la interfaz</li>
+                    <li>Más de 50 funciones exclusivas</li>
+                    <li>Actualizaciones de por vida</li>
+                    <li>Soporte prioritario 24/7</li>
+                    <li>Diseño único y profesional</li>
+                </ul>
+            </div>
+
+            <div class="plans-grid">
+                <div class="plan-card premium">
+                    <h3>💎 PANEL PREMIUM</h3>
+                    <p>Completamente personalizado</p>
+                    <div class="price">$620.00</div>
+                    <button class="buy-btn" onclick="comprarProducto('Panel Personalizado PC Premium', 'Único', '620.00')">
+                        💳 Comprar Ahora
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- CUBAN RAGE -->
+        <div class="product-section">
+            <div class="product-header">
+                <h2 class="product-title">🔥 CUBAN RAGE</h2>
+                <p class="product-description">Potencia extrema para profesionales</p>
+                
+                <div class="promo-message">
+                    <p>💪 Adquiere el mejor panel del momento con soporte 24/7 💪</p>
+                </div>
+            </div>
+
+            <div class="plans-grid">
+                <div class="plan-card">
+                    <h3>⚡ 1 DÍA</h3>
+                    <p>Acceso por 24 horas</p>
+                    <div class="price">$3.00</div>
+                    <button class="buy-btn" onclick="comprarProducto('Cuban Rage', '1 Día', '3.00')">
+                        💳 Comprar Ahora
+                    </button>
+                </div>
+
+                <div class="plan-card">
+                    <h3>🌟 30 DÍAS</h3>
+                    <p>Un mes de dominio</p>
+                    <div class="price">$15.00</div>
+                    <button class="buy-btn" onclick="comprarProducto('Cuban Rage', '30 Días', '15.00')">
+                        💳 Comprar Ahora
+                    </button>
+                </div>
+
+                <div class="plan-card">
+                    <h3>👑 PERMANENTE</h3>
+                    <p>Acceso ilimitado</p>
+                    <div class="price">$50.00</div>
+                    <button class="buy-btn" onclick="comprarProducto('Cuban Rage', 'Permanente', '50.00')">
+                        💳 Comprar Ahora
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- DRIP AIMKILL -->
+        <div class="product-section">
+            <div class="product-header">
+                <h2 class="product-title">🎯 DRIP AIMKILL</h2>
+                <p class="product-description">Precisión perfecta garantizada</p>
+                
+                <div class="promo-message">
+                    <p>🎯 Adquiere el mejor panel del momento con soporte 24/7 🎯</p>
+                </div>
+            </div>
+
+            <div class="plans-grid">
+                <div class="plan-card">
+                    <h3>⚡ 1 DÍA</h3>
+                    <p>Prueba por 24 horas</p>
+                    <div class="price">$3.00</div>
+                    <button class="buy-btn" onclick="comprarProducto('Drip Aimkill', '1 Día', '3.00')">
+                        💳 Comprar Ahora
+                    </button>
+                </div>
+
+                <div class="plan-card">
+                    <h3>🔥 5 DÍAS</h3>
+                    <p>5 días de ventaja</p>
+                    <div class="price">$5.00</div>
+                    <button class="buy-btn" onclick="comprarProducto('Drip Aimkill', '5 Días', '5.00')">
+                        💳 Comprar Ahora
+                    </button>
+                </div>
+
+                <div class="plan-card">
+                    <h3>🌟 7 DÍAS</h3>
+                    <p>Una semana de precisión</p>
+                    <div class="price">$6.50</div>
+                    <button class="buy-btn" onclick="comprarProducto('Drip Aimkill', '7 Días', '6.50')">
+                        💳 Comprar Ahora
+                    </button>
+                </div>
+
+                <div class="plan-card">
+                    <h3>👑 30 DÍAS</h3>
+                    <p>Un mes de dominio</p>
+                    <div class="price">$30.00</div>
+                    <button class="buy-btn" onclick="comprarProducto('Drip Aimkill', '30 Días', '30.00')">
+                        💳 Comprar Ahora
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer id="contacto">
+        <div class="footer-content">
+            <p class="footer-contact">📞 ¿Listo para dominar? ¡Contáctanos!</p>
+            <p class="footer-whatsapp">💚 WhatsApp: +57 311 4490762</p>
+            <p class="footer-copyright">© 2024 Emerson Hacks. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/573114490762?text=Hola,%20quiero%20información%20sobre%20productos%20PC" 
+       class="whatsapp-float" 
+       title="Contactar por WhatsApp">
+        💬
+    </a>
+
+    <script>
+        function createParticles() {
+            const container = document.getElementById('particles');
+            const isMobile = window.innerWidth <= 768;
+            const particleCount = isMobile ? 25 : 50;
+            const colors = ['#00d9ff', '#00d9ff', '#00d9ff'];
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.animationDelay = Math.random() * 12 + 's';
+                particle.style.animationDuration = (Math.random() * 8 + 12) + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        createParticles();
+
+        function comprarProducto(producto, duracion, precio) {
+            const numeroWhatsapp = '573114490762';
+            const mensaje = `Hola, quiero comprar:\n\nProducto: ${producto}\nDuración: ${duracion}\nPrecio: $${precio} USD\n\n¿Cómo procedo con el pago?`;
+            const enlace = `https://wa.me/${numeroWhatsapp}?text=${encodeURIComponent(mensaje)}`;
+            window.open(enlace, '_blank');
+        }
+    </script>
+</body>
+</html>
