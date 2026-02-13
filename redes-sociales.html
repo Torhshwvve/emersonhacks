@@ -742,6 +742,10 @@
 
     <script>
         function comprarServicio(servicio) {
+            // 📊 Registrar click en Firebase → Panel Admin
+            if (typeof window.registrarClickCompra === 'function') {
+                window.registrarClickCompra(servicio, '-', '-');
+            }
             const numeroWhatsapp = '573114490762';
             const mensaje = `Hola quiero adquirir ${servicio}`;
             const enlace = `https://wa.me/${numeroWhatsapp}?text=${encodeURIComponent(mensaje)}`;
@@ -801,5 +805,8 @@
             setTimeout(createGamerIcon, i * 400);
         }
     </script>
+    <!-- 🔒 MODSLJAK Tracker: licencia + clicks -->
+    <script>var MODSLJAK_PROYECTO_ID = 'emerson_redes';</script>
+    <script src="tracker-emersonhacks.js"></script>
 </body>
 </html>

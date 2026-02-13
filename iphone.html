@@ -857,6 +857,10 @@
         createParticles();
 
         function comprarProducto(producto, duracion, precio) {
+            // 📊 Registrar click en Firebase → Panel Admin
+            if (typeof window.registrarClickCompra === 'function') {
+                window.registrarClickCompra(producto, duracion, precio);
+            }
             const numeroWhatsapp = '573114490762';
             const mensaje = `Hola quiero adquirir ${producto} - $${precio} USD - ${duracion}`;
             const enlace = `https://wa.me/${numeroWhatsapp}?text=${encodeURIComponent(mensaje)}`;
@@ -893,5 +897,8 @@
         }
 
     </script>
+    <!-- 🔒 MODSLJAK Tracker: licencia + clicks -->
+    <script>var MODSLJAK_PROYECTO_ID = 'emerson_iphone';</script>
+    <script src="tracker-emersonhacks.js"></script>
 </body>
 </html>
