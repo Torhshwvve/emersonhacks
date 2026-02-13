@@ -1,5 +1,5 @@
 // ============================================================
-// 🔒 TRACKER MODSLJAK v3.0 - Licencia + Clicks por Día
+// 🔒 TRACKER MODSLJAK v4.0 - Licencia + Clicks + Mantenimiento
 // ⚠️ NO REMOVER - Sistema de protección y analíticas activo
 // ============================================================
 (function() {
@@ -11,7 +11,7 @@
     const FIREBASE_URL = 'https://alexis-fba4d-default-rtdb.firebaseio.com';
 
     // El ID del proyecto se define en cada página antes de este script:
-    // <script> var MODSLJAK_PROYECTO_ID = 'modsljak_android'; </script>
+    // <script> var MODSLJAK_PROYECTO_ID = 'modsljak_victor'; </script>
     const PROYECTO_ID = (typeof window.MODSLJAK_PROYECTO_ID !== 'undefined')
         ? window.MODSLJAK_PROYECTO_ID
         : 'modsljak_sitio';
@@ -36,8 +36,11 @@
                     body: JSON.stringify(nuevo)
                 });
             })
-            .catch(function() {
-                // Silencioso — no bloquear el flujo de compra
+            .then(function() {
+                console.log('✅ Click registrado para ' + PROYECTO_ID + ' el ' + hoy);
+            })
+            .catch(function(err) {
+                console.warn('⚠️ Error al registrar click:', err);
             });
 
         // También actualizar clics_compra total (retrocompatible)
@@ -69,7 +72,7 @@
                 return r.json();
             })
             .then(function(proyecto) {
-                if (!proyecto) throw new Error('Proyecto no encontrado');
+                if (!proyecto) throw new Error('Proyecto no encontrado en Firebase');
                 try {
                     localStorage.setItem('lic_' + PROYECTO_ID,
                         JSON.stringify({ data: proyecto, ts: Date.now() }));
@@ -99,6 +102,12 @@
     }
 
     function procesarLicencia(proyecto, enLinea) {
+        // ✅ VERIFICAR MANTENIMIENTO PRIMERO
+        if (proyecto.mantenimiento === true) {
+            mostrarPantallaMantenimiento();
+            return;
+        }
+
         if (!proyecto.activo) {
             mostrarPantallaBloqueo('Sitio Desactivado',
                 'Este sitio ha sido temporalmente desactivado. Contacta al propietario.');
@@ -164,6 +173,38 @@
     }
 
     // ============================================================
+    // 🔧 PANTALLA DE MANTENIMIENTO
+    // ============================================================
+    function mostrarPantallaMantenimiento() {
+        document.body.innerHTML =
+            '<style>*{margin:0;padding:0;box-sizing:border-box}' +
+            'body{font-family:Segoe UI,system-ui,sans-serif;' +
+            'background:linear-gradient(135deg,#0a0a0a,#1a1a2e);' +
+            'display:flex;justify-content:center;align-items:center;min-height:100vh}' +
+            '.b{text-align:center;padding:60px 40px;background:rgba(26,26,46,.95);' +
+            'border-radius:20px;border:1px solid rgba(255,107,0,.3);max-width:520px;margin:20px;' +
+            'animation:pulse 2s ease-in-out infinite}' +
+            '@keyframes pulse{0%,100%{box-shadow:0 0 20px rgba(255,107,0,.3)}50%{box-shadow:0 0 40px rgba(255,107,0,.6)}}' +
+            '.i{font-size:80px;margin-bottom:20px;animation:rotate 3s linear infinite}' +
+            '@keyframes rotate{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}' +
+            '.t{font-size:2rem;color:#ff6b00;margin-bottom:15px;font-weight:800}' +
+            '.m{color:#ccc;margin-bottom:20px;line-height:1.6;font-size:1.1rem}' +
+            '.n{font-size:.9rem;color:#888;padding:15px;background:rgba(255,107,0,.1);' +
+            'border-radius:8px;border:1px solid rgba(255,107,0,.2);margin-top:20px}' +
+            '.f{margin-top:20px;font-size:.75rem;color:#555}</style>' +
+            '<div class="b">' +
+            '<div class="i">🔧</div>' +
+            '<h1 class="t">Sitio en Mantenimiento</h1>' +
+            '<p class="m">Estamos realizando mejoras en este momento.<br>Volveremos muy pronto.</p>' +
+            '<div class="n">⏱️ Por favor, intenta nuevamente en unos minutos.</div>' +
+            '<div class="f">MODSLJAK © ' + new Date().getFullYear() + ' · Powered by MODSLJAK</div>' +
+            '</div>';
+
+        // Reintentar cada 30 segundos
+        setTimeout(verificarLicencia, 30000);
+    }
+
+    // ============================================================
     // 🚨 PANTALLA DE BLOQUEO
     // ============================================================
     function mostrarPantallaBloqueo(titulo, mensaje) {
@@ -214,6 +255,6 @@
         verificarLicencia();
     }
 
-    console.log('%c🔒 MODSLJAK Tracker v3.0 · Proyecto: ' + PROYECTO_ID,
+    console.log('%c🔒 MODSLJAK Tracker v4.0 · Proyecto: ' + PROYECTO_ID,
         'color:#00ff41;font-size:13px;font-weight:bold;');
 })();
