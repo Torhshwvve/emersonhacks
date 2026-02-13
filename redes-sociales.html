@@ -743,7 +743,7 @@
     <script>
         function comprarServicio(servicio) {
             const numeroWhatsapp = '573114490762';
-            const mensaje = `Hola, me interesa comprar: ${servicio}`;
+            const mensaje = `Hola quiero adquirir ${servicio}`;
             const enlace = `https://wa.me/${numeroWhatsapp}?text=${encodeURIComponent(mensaje)}`;
             window.open(enlace, '_blank');
         }
@@ -771,10 +771,10 @@
         
         // Crear iconos gamer flotantes
         const gamerIcons = ['🎮', '⚡', '🔥', '💻', '📱', '🏆', '⭐', '🎯', '🚀', '💎', '🔌', '⚙️', '🎲', '👾', '🌟'];
-        const container = document.getElementById('gamer-icons-container');
+        const gamerContainer = document.getElementById('gamer-icons-container');
 
         function createGamerIcon() {
-            if (!container) return;
+            if (!gamerContainer) return;
             const icon = document.createElement('div');
             icon.className = 'gamer-icon';
             icon.textContent = gamerIcons[Math.floor(Math.random() * gamerIcons.length)];
@@ -787,7 +787,7 @@
             icon.style.animationDuration = duration + 's';
             icon.style.animationDelay = delay + 's';
             
-            container.appendChild(icon);
+            gamerContainer.appendChild(icon);
             
             // Eliminar el icono después de que termina la animación
             setTimeout(() => icon.remove(), (duration + delay) * 1000);

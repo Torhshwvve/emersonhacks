@@ -110,7 +110,7 @@
             }
         }
 
- {
+        .particles-container {
             position: fixed;
             top: 0;
             left: 0;
@@ -878,17 +878,17 @@
 
         function comprarProducto(producto, duracion, precio) {
             const numeroWhatsapp = '573114490762';
-            const mensaje = `Hola, quiero comprar:\n\nProducto: ${producto}\nDuración: ${duracion}\nPrecio: $${precio} USD\n\n¿Cómo procedo con el pago?`;
+            const mensaje = `Hola quiero adquirir ${producto} - $${precio} USD - ${duracion}`;
             const enlace = `https://wa.me/${numeroWhatsapp}?text=${encodeURIComponent(mensaje)}`;
             window.open(enlace, '_blank');
         }
 
         // Crear iconos gamer flotantes
         const gamerIcons = ['🎮', '⚡', '🔥', '💻', '📱', '🏆', '⭐', '🎯', '🚀', '💎', '🔌', '⚙️', '🎲', '👾', '🌟'];
-        const container = document.getElementById('gamer-icons-container');
+        const gamerContainer = document.getElementById('gamer-icons-container');
 
         function createGamerIcon() {
-            if (!container) return;
+            if (!gamerContainer) return;
             const icon = document.createElement('div');
             icon.className = 'gamer-icon';
             icon.textContent = gamerIcons[Math.floor(Math.random() * gamerIcons.length)];
@@ -901,7 +901,7 @@
             icon.style.animationDuration = duration + 's';
             icon.style.animationDelay = delay + 's';
             
-            container.appendChild(icon);
+            gamerContainer.appendChild(icon);
             
             setTimeout(() => icon.remove(), (duration + delay) * 1000);
         }
@@ -911,6 +911,7 @@
         for (let i = 0; i < 5; i++) {
             setTimeout(createGamerIcon, i * 400);
         }
-
+
+    </script>
 </body>
 </html>
