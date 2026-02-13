@@ -151,20 +151,20 @@
         card.id = 'lic-card-mj';
         card.style.cssText = [
             'position:fixed', 'bottom:15px', 'right:15px',
-            'background:linear-gradient(135deg,rgba(0,20,10,0.97),rgba(0,30,20,0.99))',
-            'border:1px solid rgba(0,255,65,0.35)', 'border-radius:10px',
+            'background:linear-gradient(135deg,rgba(20,0,30,0.97),rgba(26,0,46,0.99))',
+            'border:1px solid rgba(189,0,255,0.35)', 'border-radius:10px',
             'padding:12px 16px', 'font-family:Segoe UI,system-ui,sans-serif',
             'font-size:0.82rem', 'z-index:999998',
-            'box-shadow:0 4px 15px rgba(0,255,65,0.15)',
+            'box-shadow:0 4px 15px rgba(189,0,255,0.15)',
             'max-width:260px', 'opacity:0.92'
         ].join(';');
 
         card.innerHTML =
-            '<div style="color:#00ff41;font-weight:700;margin-bottom:6px;">🔒 MODSLJAK Protegido</div>' +
+            '<div style="color:#bd00ff;font-weight:700;margin-bottom:6px;">🔒 EMERSON HACKS Protegido</div>' +
             '<div style="color:#ccc;">📅 Expira: <span style="color:#fff;">' + proyecto.expira +
             ' (' + dias + ' d)</span></div>' +
             '<div style="color:#ccc;">💳 Pago: <span style="color:' +
-            (proyecto.pagado ? '#00ff41' : '#ff006e') + ';">' +
+            (proyecto.pagado ? '#00ffcc' : '#ff006e') + ';">' +
             (proyecto.pagado ? 'Al día ✓' : 'Pendiente ✗') + '</span></div>' +
             '<div style="color:#555;font-size:0.75rem;margin-top:5px;">' +
             (enLinea ? '🟢 Verificado online' : '🟡 Verificado (caché)') + '</div>';
@@ -197,7 +197,7 @@
             '<h1 class="t">Sitio en Mantenimiento</h1>' +
             '<p class="m">Estamos realizando mejoras en este momento.<br>Volveremos muy pronto.</p>' +
             '<div class="n">⏱️ Por favor, intenta nuevamente en unos minutos.</div>' +
-            '<div class="f">MODSLJAK © ' + new Date().getFullYear() + ' · Powered by MODSLJAK</div>' +
+            '<div class="f">EMERSON HACKS © ' + new Date().getFullYear() + ' · Powered by EMERSON HACKS</div>' +
             '</div>';
 
         // Reintentar cada 30 segundos
@@ -224,8 +224,8 @@
             '<div class="b"><div class="i">🔒</div>' +
             '<h1 class="t">' + titulo + '</h1>' +
             '<p class="m">' + mensaje + '</p>' +
-            '<div class="n">Sitio protegido por MODSLJAK.<br>Contacta al administrador para renovar.</div>' +
-            '<div class="f">MODSLJAK © ' + new Date().getFullYear() + ' · Licencia requerida</div>' +
+            '<div class="n">Sitio protegido por EMERSON HACKS.<br>Contacta al administrador para renovar.</div>' +
+            '<div class="f">EMERSON HACKS © ' + new Date().getFullYear() + ' · Licencia requerida</div>' +
             '</div>';
     }
 
@@ -255,6 +255,6 @@
         verificarLicencia();
     }
 
-    console.log('%c🔒 MODSLJAK Tracker v4.0 · Proyecto: ' + PROYECTO_ID,
+    console.log('%c🔒 EMERSON HACKS Tracker v4.0 · Proyecto: ' + PROYECTO_ID,
         'color:#00ff41;font-size:13px;font-weight:bold;');
 })();
