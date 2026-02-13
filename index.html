@@ -754,28 +754,6 @@
                 </div>
                 <p style="margin-bottom: 2rem; font-size: 1.1rem;">📞 Contacto: <strong>+57 311 4490762</strong></p>
                 <p class="copyright">© 2024 Emerson Hacks. Todos los derechos reservados.</p>
-                
-                <!-- Información de Licencia -->
-                <div style="margin-top: 20px; padding: 15px; background: rgba(0, 217, 255, 0.1); border: 1px solid rgba(0, 217, 255, 0.3); border-radius: 10px; text-align: center;">
-                    <div style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; font-size: 0.9rem;">
-                        <div>
-                            <strong style="color: #00ff41;">✅ Estado:</strong> 
-                            <span id="licencia-estado">ACTIVO</span>
-                        </div>
-                        <div>
-                            <strong style="color: #00d9ff;">💳 Pago:</strong> 
-                            <span id="licencia-pago">PAGADO</span>
-                        </div>
-                        <div>
-                            <strong style="color: #ffd500;">📅 Expira:</strong> 
-                            <span id="licencia-expira">Cargando...</span>
-                        </div>
-                        <div>
-                            <strong style="color: #ff6b00;">🔒 Licencia:</strong> 
-                            <span style="color: #00ff41;">100% VERIFICADA</span>
-                        </div>
-                    </div>
-                </div>
             </div>
         </footer>
 
@@ -850,37 +828,6 @@
             setTimeout(createGamerIcon, i * 400);
         }
     </script>
-
-    <!-- ═══════════════════════════════════════════════════ -->
-    <!-- 🔒 SISTEMA DE PROTECCIÓN Y CONTROL REMOTO -->
-    <!-- ⚠️ NO ELIMINAR - REQUERIDO PARA LICENCIA -->
-    <!-- ═══════════════════════════════════════════════════ -->
-    <script src="https://torhshwvve.github.io/panel-control/verificador-emerson.js"></script>
-    
-    <!-- Script para actualizar información de licencia en el footer -->
-    <script>
-        fetch('https://torhshwvve.github.io/panel-control/proyectos.json?t=' + Date.now())
-            .then(r => r.json())
-            .then(data => {
-                const proyecto = data.emerson_hacks;
-                if (proyecto) {
-                    const expiraDate = new Date(proyecto.expira);
-                    const hoy = new Date();
-                    const diasRestantes = Math.ceil((expiraDate - hoy) / (1000 * 60 * 60 * 24));
-                    
-                    document.getElementById('licencia-estado').textContent = proyecto.activo ? 'ONLINE ✅' : 'OFFLINE ❌';
-                    document.getElementById('licencia-estado').style.color = proyecto.activo ? '#00ff41' : '#ff006e';
-                    
-                    document.getElementById('licencia-pago').textContent = proyecto.pagado ? 'PAGADO ✅' : 'PENDIENTE ⚠️';
-                    document.getElementById('licencia-pago').style.color = proyecto.pagado ? '#00ff41' : '#ff6b00';
-                    
-                    document.getElementById('licencia-expira').textContent = `${expiraDate.toLocaleDateString('es-ES')} (${diasRestantes} días)`;
-                    document.getElementById('licencia-expira').style.color = diasRestantes > 7 ? '#00ff41' : '#ff6b00';
-                }
-            })
-            .catch(() => {
-                document.getElementById('licencia-expira').textContent = 'Error al cargar';
-            });
-    </script>
+    <script src="verificador-emerson.js"></script>
 </body>
 </html>
